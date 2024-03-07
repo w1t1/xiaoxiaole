@@ -170,7 +170,7 @@ MonoBehaviour:
   prefabToCreate: {fileID: 7364579281550221932, guid: 3877c636dc5f66f41ab4d7e1ad09f64c, type: 3}
   rows: 7
   columns: 8
-  elementPrefabs:
+  elementTypePrefabs:
   - elementObject: {fileID: 7364579281550221932, guid: d093a15815e4c2744be3aa3bc06921dc, type: 3}
     type: 1
 --- !u!1 &705507993

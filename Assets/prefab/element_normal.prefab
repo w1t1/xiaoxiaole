@@ -116,6 +116,8 @@ GameObject:
   m_Component:
   - component: {fileID: 78306312522508013}
   - component: {fileID: 8162382400820890558}
+  - component: {fileID: 2484885715002810963}
+  - component: {fileID: 1052750708695275930}
   m_Layer: 0
   m_Name: element_normal
   m_TagString: Untagged
@@ -156,3 +158,27 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: 943971ec26cfcf5429eefee0796e67dc, type: 3}
   - type: 1
     texture: {fileID: 2800000, guid: c0d3a58fdf9dc614a8dd8d97722c89b0, type: 3}
+--- !u!114 &2484885715002810963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7364579281550221932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b4116d5b4e38924f967dd1f45f1cea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1052750708695275930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7364579281550221932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 666fddc3cab780f4a9a7813c4aab517d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
