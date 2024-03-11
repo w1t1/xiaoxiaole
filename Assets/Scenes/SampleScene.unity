@@ -147,7 +147,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 532496025}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.4, y: -5.46, z: 9.502789}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -168,11 +168,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabToCreate: {fileID: 7364579281550221932, guid: 3877c636dc5f66f41ab4d7e1ad09f64c, type: 3}
-  rows: 7
-  columns: 8
+  rows: 5
+  columns: 7
   elementTypePrefabs:
   - elementObject: {fileID: 7364579281550221932, guid: d093a15815e4c2744be3aa3bc06921dc, type: 3}
     type: 1
+  startElements: {fileID: 0}
+  endElements: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

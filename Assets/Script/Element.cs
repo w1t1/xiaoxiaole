@@ -80,4 +80,19 @@ public class Element : MonoBehaviour
         m_y = row;
     }
 
+    public void OnMouseEnter()
+    {
+        gameManager.MouseMoving(this);
+    }
+
+    public void OnMouseDown()
+    {
+        gameManager.StartMoving(this);
+    }
+
+    public void OnMouseUp()
+    {
+
+    }
+
 }
