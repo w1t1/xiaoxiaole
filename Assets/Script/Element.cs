@@ -66,10 +66,20 @@ public class Element : MonoBehaviour
         }
     }
 
+    private ClearComponent m_clearComponent;
+    public ClearComponent clearComponent
+    {
+        get
+        {
+            return m_clearComponent;
+        }
+    }
+
     public void Awake()
     {
         m_moveCompoent = GetComponent<MoveComponent>();
         m_textureCompoent = GetComponent<TextureComponent>();
+        m_clearComponent = GetComponent<ClearComponent>();
     }
 
     public void Init(int col, int row, GameManager _gameManager, GameManager.ElementType type)
@@ -92,7 +102,7 @@ public class Element : MonoBehaviour
 
     public void OnMouseUp()
     {
-
+        gameManager.EndMoving();
     }
 
 }

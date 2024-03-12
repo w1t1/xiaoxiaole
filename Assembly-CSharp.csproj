@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Assets\Script\MoveComponent.cs" />
     <Compile Include="Assets\Script\TextureComponent.cs" />
+    <Compile Include="Assets\Script\ClearComponent.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\Element.cs" />
   </ItemGroup>

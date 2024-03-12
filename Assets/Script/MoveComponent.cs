@@ -30,7 +30,7 @@ public class MoveComponent : MonoBehaviour
         element.Y = row;
 
         Vector3 startPos = transform.position;
-        Vector3 endPos = element.gameManager.GenElementPos(col, row);
+        Vector3 endPos = element.gameManager.GenElementPos(col, row, 0.5f);
         for (float t = 0; t < time; t += Time.deltaTime)
         {
             element.transform.position = Vector3.Lerp(startPos, endPos, t / time);

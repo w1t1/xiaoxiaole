@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Xml.Linq;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,6 +35,12 @@ public class GameManager : MonoBehaviour
     public Element[,] elements;
     public Element startElements;
     public Element endElements;
+    public Text scoreText;
+    public Text addScoreText;
+    public int currentScore = 0;
+    public int addScore = 0;
+    public float addScoreTime = 0.0f;
+    public GameObject selection;
     bool isMoving = false;
     // Start is called before the first frame update
     void Start()
@@ -53,7 +60,26 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (addScore > 0)
+        {
+            addScoreText.gameObject.SetActive(true);
+            if (addScoreTime > 0.2f)
+            {
+                currentScore++;
+                addScore--;
+                scoreText.text = currentScore.ToString();
+                addScoreText.text = "+" + addScore.ToString();
+                addScoreTime = 0.0f;
+            }
+            else
+            {
+                addScoreTime += Time.deltaTime;
+            }
+        }
+        else
+        {
+            addScoreText.gameObject.SetActive(false);
+        }
     }
 
     void CreateBackground()
@@ -63,31 +89,21 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < rows + 1; j++)
             {
-                Instantiate(prefabToCreate, new Vector3(transform.position.x + i * 2 - 0.5f, transform.position.y + j * 2 - 0.5f, transform.position.z), Quaternion.identity);
+                Instantiate(prefabToCreate, GenElementPos(i, j, 0.0f), Quaternion.identity);
             }
         }
-        //for (int j = 0; j < rows + 1; j++)
-        //{
-
-        //    for (int i = 0; i < columns; i++)
-        //    {
-        //        Element newElement = CreateNewElement(i, rows, ElementType.Normal);
-        //        newElement.textureComponent.SetTexture((TextureComponent.TextureType)UnityEngine.Random.Range(0, 2));
-        //    }
-        //}
         StartCoroutine(AllFill());
     }
 
-    public Vector3 GenElementPos(int col, int row)
+    public Vector3 GenElementPos(int col, int row, float depth)
     {
-        return new Vector3(transform.position.x + col * 2 - 0.5f, transform.position.y + row * 2 - 0.5f, transform.position.z - 0.5f);
+        return new Vector3(transform.position.x + col * 2.01f - 3.0f, transform.position.y + row * 2.1f - 1.0f, transform.position.z - depth);
     }
 
     public Element CreateNewElement(int col, int row, ElementType type)
     {
-        GameObject newElement = Instantiate(elementPrefabDict[type], GenElementPos(col, row), Quaternion.identity);
+        GameObject newElement = Instantiate(elementPrefabDict[type], GenElementPos(col, row, 0.5f), Quaternion.identity);
 
-        //newElement.GetComponent<TextureComponent>().SetTexture((TextureComponent.TextureType)UnityEngine.Random.Range(0, 2));
         newElement.transform.parent = transform;
         elements[col, row] = newElement.GetComponent<Element>();
         elements[col, row].Init(col, row, this, type);
@@ -181,6 +197,8 @@ public class GameManager : MonoBehaviour
     {
         startElements = element;
         isMoving = true;
+        selection.SetActive(true);
+        selection.transform.position = element.transform.position;
     }
 
     public void MouseMoving(Element element)
@@ -189,11 +207,18 @@ public class GameManager : MonoBehaviour
         {
             if (IsAdjoin(startElements, element))
             {
+                selection.SetActive(false);
                 endElements = element;
                 StartCoroutine(TryToSwapElement(startElements, element));
                 isMoving = false;
             }
         }
+    }
+
+    public void EndMoving()
+    {
+        selection.SetActive(false);
+        isMoving = false;
     }
 
     public IEnumerator TryToSwapElement(Element element1, Element element2)
@@ -214,24 +239,25 @@ public class GameManager : MonoBehaviour
             if (match1 != null)
             {
                 HashSet<Element> set = new HashSet<Element>(match1);
-
+                addScore += set.Count;
                 foreach (var item in set)
                 {
                     elements[item.X, item.Y] = null;
-                    Destroy(item.gameObject);
+                    item.clearComponent.Clear();
                 }
             }
 
             if (match2 != null)
             {
                 HashSet<Element> set = new HashSet<Element>(match2);
-
+                addScore += set.Count;
                 foreach (var item in set)
                 {
                     elements[item.X, item.Y] = null;
-                    Destroy(item.gameObject);
+                    item.clearComponent.Clear();
                 }
             }
+            yield return new WaitForSeconds(1.0f);
             StartCoroutine(AllFill());
         }
         else
@@ -460,12 +486,12 @@ public class GameManager : MonoBehaviour
         }
         if (match.Count > 0)
         {
-
+            addScore += match.Count;
             foreach (Element item in match)
             {
 
-                Destroy(item.gameObject);
                 elements[item.X, item.Y] = null;
+                item.clearComponent.Clear();
             }
 
             needFill = true;
